@@ -7,8 +7,23 @@ ROOT_DIR=${PWD}
 LIB_PREFIX=libopenh264
 
 # TODO: map target platform to OS and ARCH
-OS=linux
-ARCH=arm
+OS=${MEDIADEVICES_TARGET_OS}
+ARCH=${MEDIADEVICES_TARGET_ARCH}
+
+case ${MEDIADEVICES_TARGET_OS} in
+  windows)
+    OS=msvc
+    ;;
+esac
+
+case ${MEDIADEVICES_TARGET_ARCH} in
+  armv6 | armv7 | armv8)
+    ARCH=arm
+    ;;
+  x64)
+    ARCH=x86_64
+    ;;
+esac
 
 mkdir -p ${LIB_DIR} ${INCLUDE_DIR}
 

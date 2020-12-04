@@ -5,6 +5,7 @@ MEDIADEVICES_SCRIPT_PATH=$(realpath ./scripts)
 MEDIADEVICES_TOOLCHAIN_PATH=${MEDIADEVICES_SCRIPT_PATH}/${MEDIADEVICES_TOOLCHAIN_PREFIX}
 
 MEDIADEVICES_TARGET_PLATFORMS=(
+  linux-armv7
   linux-arm64
 )
 
@@ -32,7 +33,21 @@ build() {
       export MEDIADEVICES_TOOLCHAIN_BIN=${MEDIADEVICES_TOOLCHAIN_PATH}/${MEDIADEVICES_TOOLCHAIN_PREFIX}-${platform}
       # convert '-' to '_' since '_' is more common in library names
       export MEDIADEVICES_TARGET_PLATFORM=${platform//-/_}
-      ${sub_build}
+      export MEDIADEVICES_TARGET_OS=$(echo $MEDIADEVICES_TARGET_PLATFORM | cut -d'_' -f1)
+      export MEDIADEVICES_TARGET_ARCH=${platform//${MEDIADEVICES_TARGET_OS}-/}
+
+      echo "Building ${sub_build_dir}:"
+      echo "  PLATFORM      : ${MEDIADEVICES_TARGET_PLATFORM}"
+      echo "  OS            : ${MEDIADEVICES_TARGET_OS}"
+      echo "  ARCH          : ${MEDIADEVICES_TARGET_ARCH}"
+      echo "  TOOLCHAIN_BIN : ${MEDIADEVICES_TOOLCHAIN_BIN}"
+      echo ""
+
+      if [[ -z ${VERBOSE} ]]; then
+        ${sub_build} &> /dev/null
+      else
+        ${sub_build}
+      fi
     done
     cd ${current_dir}
   done

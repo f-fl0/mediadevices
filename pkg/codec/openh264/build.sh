@@ -34,3 +34,4 @@ ${MEDIADEVICES_TOOLCHAIN_BIN} echo $PATH
 mv ${LIB_PREFIX}.a ${ROOT_DIR}/${LIB_DIR}/${LIB_PREFIX}_${MEDIADEVICES_TARGET_PLATFORM}.a
 mv codec/api/svc/*.h ${ROOT_DIR}/${INCLUDE_DIR}
 git clean -dfx
+git reset --hard

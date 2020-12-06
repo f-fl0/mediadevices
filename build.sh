@@ -4,9 +4,12 @@ MEDIADEVICES_TOOLCHAIN_PREFIX=dockcross
 MEDIADEVICES_SCRIPT_PATH=$(realpath ./scripts)
 MEDIADEVICES_TOOLCHAIN_PATH=${MEDIADEVICES_SCRIPT_PATH}/${MEDIADEVICES_TOOLCHAIN_PREFIX}
 
+# Reference: https://github.com/dockcross/dockcross#cross-compilers
 MEDIADEVICES_TARGET_PLATFORMS=(
-  linux-armv7
-  linux-arm64
+  # linux-armv7
+  # linux-arm64
+  # windows-static-x64
+  darwin-x64
 )
 
 download_toolchains() {

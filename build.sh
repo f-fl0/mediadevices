@@ -1,14 +1,16 @@
 #!/bin/bash
 
-MEDIADEVICES_TOOLCHAIN_PREFIX=dockcross
+MEDIADEVICES_TOOLCHAIN_OWNER=lherman
+MEDIADEVICES_TOOLCHAIN_PREFIX=cross
 MEDIADEVICES_SCRIPT_PATH=$(realpath ./scripts)
 MEDIADEVICES_TOOLCHAIN_PATH=${MEDIADEVICES_SCRIPT_PATH}/${MEDIADEVICES_TOOLCHAIN_PREFIX}
 
 # Reference: https://github.com/dockcross/dockcross#cross-compilers
 MEDIADEVICES_TARGET_PLATFORMS=(
-  # linux-armv7
-  # linux-arm64
-  # windows-static-x64
+  linux-armv7
+  linux-arm64
+  linux-x64
+  windows-x64
   darwin-x64
 )
 
@@ -16,7 +18,7 @@ download_toolchains() {
   for platform in ${MEDIADEVICES_TARGET_PLATFORMS[@]}
   do
     mkdir -p ${MEDIADEVICES_TOOLCHAIN_PATH}
-    image=${MEDIADEVICES_TOOLCHAIN_PREFIX}/${platform}
+    image=${MEDIADEVICES_TOOLCHAIN_OWNER}/${MEDIADEVICES_TOOLCHAIN_PREFIX}-${platform}
     bin_path=${MEDIADEVICES_TOOLCHAIN_PATH}/${MEDIADEVICES_TOOLCHAIN_PREFIX}-${platform}
     docker run ${image} > ${bin_path}
     chmod +x ${bin_path}

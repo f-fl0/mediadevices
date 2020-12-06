@@ -20,7 +20,7 @@ case ${MEDIADEVICES_TARGET_ARCH} in
   armv6 | armv7 | armv8)
     ARCH=arm
     ;;
-  x64 | windows-static-x64)
+  x64)
     ARCH=x86_64
     ;;
 esac

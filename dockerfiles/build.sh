@@ -2,7 +2,16 @@
 
 OWNER=lherman
 PREFIX=cross
-IMAGES=$(ls *.Dockerfile)
+IMAGES=(
+  darwin-base.Dockerfile
+  darwin-x64.Dockerfile
+  linux-arm64.Dockerfile
+  linux-armv7.Dockerfile
+  linux-x64.Dockerfile
+  windows-x64.Dockerfile
+)
+
+cd $(dirname $0)
 
 for image in ${IMAGES[@]}
 do

@@ -1,4 +1,4 @@
-FROM lherman-cs/dockosxcross
+FROM lherman/cross-darwin-base
 
 ENV CC=o64-clang \
     CXX=o64-clang++ \

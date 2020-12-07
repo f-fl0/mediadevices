@@ -4,6 +4,7 @@ MEDIADEVICES_TOOLCHAIN_OWNER=lherman
 MEDIADEVICES_TOOLCHAIN_PREFIX=cross
 MEDIADEVICES_SCRIPT_PATH=$(realpath ./scripts)
 MEDIADEVICES_TOOLCHAIN_PATH=${MEDIADEVICES_SCRIPT_PATH}/${MEDIADEVICES_TOOLCHAIN_PREFIX}
+MEDIADEVICES_DOCKERFILES_PATH=dockerfiles
 
 # Reference: https://github.com/dockcross/dockcross#cross-compilers
 MEDIADEVICES_TARGET_PLATFORMS=(
@@ -14,7 +15,14 @@ MEDIADEVICES_TARGET_PLATFORMS=(
   darwin-x64
 )
 
-download_toolchains() {
+if [[ -z ${VERBOSE} ]]; then
+  MEDIADEVICES_OUTPUT=/dev/null
+else
+  MEDIADEVICES_OUTPUT=/dev/stdout
+fi
+
+install_toolchains() {
+  bash ${MEDIADEVICES_DOCKERFILES_PATH}/build.sh &> ${MEDIADEVICES_OUTPUT}
   for platform in ${MEDIADEVICES_TARGET_PLATFORMS[@]}
   do
     mkdir -p ${MEDIADEVICES_TOOLCHAIN_PATH}
@@ -48,15 +56,11 @@ build() {
       echo "  TOOLCHAIN_BIN : ${MEDIADEVICES_TOOLCHAIN_BIN}"
       echo ""
 
-      if [[ -z ${VERBOSE} ]]; then
-        ${sub_build} &> /dev/null
-      else
-        ${sub_build}
-      fi
+      ${sub_build} &> ${MEDIADEVICES_OUTPUT}
     done
     cd ${current_dir}
   done
 }
 
-download_toolchains
+install_toolchains
 build

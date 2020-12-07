@@ -62,5 +62,9 @@ build() {
   done
 }
 
+if [[ $# > 0 && $1 != "all" ]]; then
+  MEDIADEVICES_TARGET_PLATFORMS=($1)
+fi
+
 install_toolchains
 build

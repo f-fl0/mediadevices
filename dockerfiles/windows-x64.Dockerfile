@@ -1,4 +1,4 @@
-FROM dockcross/windows-static-x64-posix
+FROM dockcross/windows-static-x64
 
 ARG IMAGE=lherman/cross-windows-x64
 ARG VERSION=latest

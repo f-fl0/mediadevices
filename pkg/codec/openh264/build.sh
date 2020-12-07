@@ -12,7 +12,7 @@ ARCH=${MEDIADEVICES_TARGET_ARCH}
 
 case ${MEDIADEVICES_TARGET_OS} in
   windows)
-    OS=msvc
+    OS=mingw_nt
     ;;
 esac
 
@@ -29,7 +29,7 @@ mkdir -p ${LIB_DIR} ${INCLUDE_DIR}
 
 git clone --depth=1 --branch=${VERSION} ${GIT_URL} ${SRC_DIR}
 cd ${SRC_DIR}
-${MEDIADEVICES_TOOLCHAIN_BIN} make -j ${LIB_PREFIX}.a ARCH=${ARCH}
+${MEDIADEVICES_TOOLCHAIN_BIN} make -j2 ${LIB_PREFIX}.a ARCH=${ARCH}
 ${MEDIADEVICES_TOOLCHAIN_BIN} echo $PATH
 mv ${LIB_PREFIX}.a ${ROOT_DIR}/${LIB_DIR}/${LIB_PREFIX}_${MEDIADEVICES_TARGET_PLATFORM}.a
 mv codec/api/svc/*.h ${ROOT_DIR}/${INCLUDE_DIR}
